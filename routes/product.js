@@ -4,7 +4,7 @@ const path = require('path');
 const router = express.Router();
 
 router.get('/create', (req, res) => {
-    return res.sendFile(path.join(__dirname, '../views/product/product.create.html'));
+    return res.sendFile(path.join(__dirname, '..', 'views', 'product', 'product.create.html'));
 });
 
 router.post('', (req, res) => {
