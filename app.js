@@ -14,4 +14,8 @@ app.get('/about', (_, res) => {
     return res.send('About page!');
 });
 
+app.use((req, res, next) => {
+    return res.status(404).send('Page not found');
+})
+
 app.listen(8080);
