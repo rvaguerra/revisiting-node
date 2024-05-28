@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const productRouter = require('./routes/product');
 
@@ -15,7 +16,7 @@ app.get('/about', (_, res) => {
 });
 
 app.use((_, res) => {
-    return res.status(404).send('Page not found');
+    return res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
 });
 
 app.listen(8080);
