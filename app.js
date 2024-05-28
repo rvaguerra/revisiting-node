@@ -2,11 +2,11 @@ const express = require('express');
 
 const app = express();
 
-app.route('/').get((_, res) => {
+app.get('/', (_, res) => {
     return res.send('Home');
 });
 
-app.route('/about').get((_, res) => {
+app.get('/about', (_, res) => {
     return res.send('About page!');
 });
 
