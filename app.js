@@ -4,7 +4,7 @@ const productRouter = require('./routes/product');
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 
-app.use(productRouter);
+app.use('/product', productRouter);
 
 app.get('/', (_, res) => {
     return res.send('Home');
