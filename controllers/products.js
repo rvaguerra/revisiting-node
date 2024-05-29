@@ -25,7 +25,7 @@ class ProductController {
     }
 
     show(req, res) {
-        const index = req.params['id'];
+        const index = req.params.id;
         return res.json(productsRepository.show(index));
     }
 }
