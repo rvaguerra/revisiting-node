@@ -1,11 +1,11 @@
 const path = require('path');
 const express = require('express');
-const productRouter = require('./routes/product');
+const productsRouter = require('./routes/products');
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
 
-app.use('/product', productRouter);
+app.use('/products', productsRouter);
 
 app.get('/', (_, res) => {
     return res.send('Home');
