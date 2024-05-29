@@ -1,30 +1,25 @@
 const path = require('path');
-const ProductRespository = require('../repositories/product');
+const productsRepository = require('../repositories/product');
 
-const productsRepository = new ProductRespository();
+class ProductController {
+    index(_, res) {
+        return res.json(productsRepository.index());
+    }
 
-const index = (_, res) => {
-    return res.json(productsRepository.index());
-};
+    create(_, res) {
+        return res.sendFile(path.join(__dirname, '..', 'views', 'products', 'products.create.html'));
+    }
 
-const create = (_, res) => {
-    return res.sendFile(path.join(__dirname, '..', 'views', 'products', 'products.create.html'));
-};
+    store(req, res) {
+        const name = req.body?.['product-name'] || '';
+        const product = productsRepository.store({ name });
+        return res.json(product);
+    }
 
-const store = (req, res) => {
-    const name = req.body?.['product-name'] || '';
-    const product = productsRepository.store({ name });
-    return res.json(product);
-};
-
-const show = (req, res) => {
-    const index = req.params['id'];
-    return res.json(productsRepository.show(index));
+    show(req, res) {
+        const index = req.params['id'];
+        return res.json(productsRepository.show(index));
+    }
 }
 
-module.exports = {
-    index,
-    create,
-    store,
-    show,
-};
+module.exports = new ProductController();

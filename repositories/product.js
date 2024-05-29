@@ -26,4 +26,4 @@ class ProductRespository {
     }
 }
 
-module.exports = ProductRespository;
+module.exports = new ProductRespository();
