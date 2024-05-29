@@ -16,6 +16,13 @@ class ProductRespository {
         products.push(product);
         return product;
     }
+
+    show(index) {
+        if (isNaN(index) || index < 0 || index >= products.length) {
+            throw new Error('Not found');
+        }
+
+        return products[index];
     }
 }
 
