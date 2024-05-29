@@ -1,9 +1,10 @@
 const path = require('path');
+const ProductRespository = require('../repositories/product');
 
-const products = [];
+const productsRepository = new ProductRespository();
 
 const index = (_, res) => {
-    return res.json(products);
+    return res.json(productsRepository.index());
 };
 
 const create = (_, res) => {
@@ -11,10 +12,8 @@ const create = (_, res) => {
 };
 
 const store = (req, res) => {
-    const productName = req.body?.['product-name'] || '';
-    if (productName) {
-        products.push(productName);
-    }
+    const name = req.body?.['product-name'] || '';
+    productsRepository.store({ name })
     return res.redirect('/products');
 };
 
