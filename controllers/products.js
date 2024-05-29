@@ -7,7 +7,15 @@ class ProductController {
     }
 
     create(_, res) {
-        return res.sendFile(path.join(__dirname, '..', 'views', 'products', 'products.create.html'));
+        return res.sendFile(
+            path.join(
+                __dirname,
+                '..',
+                'views',
+                'products',
+                'products.create.html'
+            )
+        );
     }
 
     store(req, res) {
