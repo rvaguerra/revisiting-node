@@ -13,8 +13,8 @@ const create = (_, res) => {
 
 const store = (req, res) => {
     const name = req.body?.['product-name'] || '';
-    productsRepository.store({ name })
-    return res.redirect('/products');
+    const product = productsRepository.store({ name });
+    return res.json(product);
 };
 
 module.exports = {

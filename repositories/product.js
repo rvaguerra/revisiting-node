@@ -12,7 +12,10 @@ class ProductRespository {
             throw new Error('Name is required');
         }
 
-        products.push(new Product(name));
+        const product = new Product(name);
+        products.push(product);
+        return product;
+    }
     }
 }
 
