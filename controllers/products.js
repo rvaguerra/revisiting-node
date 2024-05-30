@@ -2,8 +2,12 @@ const path = require('path');
 const productsRepository = require('../repositories/product');
 
 class ProductController {
-    index(_, res) {
-        return res.json(productsRepository.index());
+    async index(_, res, next) {
+        try {
+            return res.json(await productsRepository.index());
+        } catch (error) {
+            next(error);
+        }
     }
 
     create(_, res) {
@@ -18,15 +22,23 @@ class ProductController {
         );
     }
 
-    store(req, res) {
-        const name = req.body?.['product-name'] || '';
-        const product = productsRepository.store({ name });
-        return res.json(product);
+    async store(req, res, next) {
+        try {
+            const name = req.body?.['product-name'] || '';
+            const product = await productsRepository.store({ name });
+            return res.json(product);
+        } catch (error) {
+            next(error);
+        }
     }
 
-    show(req, res) {
-        const index = req.params.id;
-        return res.json(productsRepository.show(index));
+    async show(req, res, next) {
+        try {
+            const index = req.params.id;
+            return res.json(await productsRepository.show(index));
+        } catch (error) {
+            next(error);
+        }
     }
 }
 

@@ -1,28 +1,29 @@
 const Product = require('../models/product');
-
-const products = [];
+const db = require('../mysql-db/mysqlprovider');
 
 class ProductRespository {
-    index() {
+    async index() {
+        const [products] = await db.execute('SELECT * from `products`;');
         return products;
     }
 
-    store({ name }) {
+    async store({ name }) {
         if (!name) {
             throw new Error('Name is required');
         }
 
+        await db.execute(`INSERT INTO \`products\` (name) VALUES ('${name}');`);
+
         const product = new Product(name);
-        products.push(product);
         return product;
     }
 
-    show(index) {
-        if (isNaN(index) || index < 0 || index >= products.length) {
+    async show(id) {
+        const [product] = await db.execute(`SELECT * from \`products\` WHERE id = ${id};`);
+        if (!product) {
             throw new Error('Not found');
         }
-
-        return products[index];
+        return product;
     }
 }
 
