@@ -1,30 +1,21 @@
-import { Product } from '../models/product';
-import db from '../mysql-db/mysqlprovider';
+import { DataSource } from 'typeorm';
+import { Product } from '../entities/product.entity';
+import db from '../data/datasource';
 
 class ProductRespository {
+    constructor(private dataSource: DataSource) { }
+
     async index() {
-        const [products] = await db.execute('SELECT * from `products`;');
-        return products;
+        return await this.dataSource.getRepository(Product).find();
     }
 
     async store({ name }: { name: string }) {
-        if (!name) {
-            throw new Error('Name is required');
-        }
-
-        await db.execute(`INSERT INTO \`products\` (name) VALUES ('${name}');`);
-
-        const product = new Product(name);
-        return product;
+        return await this.dataSource.getRepository(Product).save({ name });
     }
 
     async show(id: number) {
-        const [product] = await db.execute(`SELECT * from \`products\` WHERE id = ${id};`);
-        if (!product) {
-            throw new Error('Not found');
-        }
-        return product;
+        return await this.dataSource.getRepository(Product).findOneByOrFail({ id });
     }
 }
 
-export default new ProductRespository();
+export default new ProductRespository(db);

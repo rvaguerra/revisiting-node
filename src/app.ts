@@ -1,25 +1,34 @@
 import express from 'express';
 import path from 'path';
+import 'reflect-metadata';
+import db from './data/datasource';
 import productsRouter from './routes/products';
+import { retry } from './utils/retry';
 
-const app = express();
-app.use(express.urlencoded({ extended: false }));
+const DATABASE_RETRIES = 20;
+const DATABASE_WAIT = 1000;
 
-app.use('/products', productsRouter);
+(async () => {
+    await retry(async () => { await db.initialize(); }, DATABASE_RETRIES, DATABASE_WAIT);
 
-app.get('/', (_, res) => {
-    return res.send('Home');
-});
+    const app = express();
+    app.use(express.urlencoded({ extended: false }));
 
-app.get('/about', (_, res) => {
-    return res.send('About page!');
-});
+    app.use('/products', productsRouter);
 
-app.use((_, res) => {
-    return res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
-});
+    app.get('/', (_, res) => {
+        return res.send('Home');
+    });
 
-app.listen(8080);
+    app.get('/about', (_, res) => {
+        return res.send('About page!');
+    });
 
-console.log('Listening...');
+    app.use((_, res) => {
+        return res.status(404).sendFile(path.join(__dirname, 'views', '404.html'));
+    });
 
+    app.listen(8080);
+
+    console.log('Listening...');
+})();
