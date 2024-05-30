@@ -1,0 +1,45 @@
+version: '3.1'
+
+services:
+  server:
+    build: .
+    ports:
+      - 8080:8080
+    expose:
+      - 8080
+    develop:
+      watch:
+        - action: sync+restart
+          path: ./
+          target: /app
+          ignore:
+            - node_modules
+            - package.json
+            - package-lock.json
+        - action: rebuild
+          path: package.json
+    depends_on:
+      - db
+    networks:
+      - internal
+
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: nodedb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    volumes:
+      - ./mysql-db/mysql-migration.sql:/docker-entrypoint-initdb.d/mysql-migration.sql
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
