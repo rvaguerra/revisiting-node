@@ -2,7 +2,7 @@ import { DataSource } from 'typeorm';
 
 export default new DataSource({
     type: 'mysql',
-    host: 'db',
+    host: 'mysqldb',
     username: 'user',
     password: 'password',
     database: 'nodedb',

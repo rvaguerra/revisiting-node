@@ -23,12 +23,14 @@ services:
         - action: rebuild
           path: package.json
     depends_on:
-      db:
+      mysqldb:
         condition: service_healthy
+      mongodb:
+        condition: service_started
     networks:
       - internal
 
-  db:
+  mysqldb:
     image: mysql
     restart: always
     environment:
@@ -56,6 +58,19 @@ services:
         ]
       timeout: 20s
       retries: 10
+
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+    networks:
+      - internal
 
 networks:
   internal:

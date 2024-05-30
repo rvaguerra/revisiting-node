@@ -1,7 +1,8 @@
 import express from 'express';
 import path from 'path';
 import 'reflect-metadata';
-import db from './data/datasource';
+import mongodb from './data/mongodb';
+import mysqldb from './data/mysqldb';
 import productsRouter from './routes/products';
 import { retry } from './utils/retry';
 
@@ -9,7 +10,8 @@ const DATABASE_RETRIES = 20;
 const DATABASE_WAIT = 1000;
 
 (async () => {
-    await retry(async () => { await db.initialize(); }, DATABASE_RETRIES, DATABASE_WAIT);
+    await retry(async () => { await mysqldb.initialize(); }, DATABASE_RETRIES, DATABASE_WAIT);
+    await retry(async () => { await mongodb.initialize(); }, DATABASE_RETRIES, DATABASE_WAIT);
 
     const app = express();
     app.use(express.urlencoded({ extended: false }));

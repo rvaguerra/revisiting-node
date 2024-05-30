@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import db from '../data/datasource';
+import mysqldb from '../data/mysqldb';
 import { Product } from '../entities/product.entity';
 
 class ProductRespository {
@@ -26,4 +26,4 @@ class ProductRespository {
     }
 }
 
-export default new ProductRespository(db);
+export default new ProductRespository(mysqldb);
