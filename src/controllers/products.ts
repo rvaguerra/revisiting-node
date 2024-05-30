@@ -1,8 +1,9 @@
-const path = require('path');
-const productsRepository = require('../repositories/product');
+import { NextFunction, Request, Response } from 'express';
+import path from 'path';
+import productsRepository from '../repositories/product';
 
 class ProductController {
-    async index(_, res, next) {
+    async index(_: Request, res: Response, next: NextFunction) {
         try {
             return res.json(await productsRepository.index());
         } catch (error) {
@@ -10,7 +11,7 @@ class ProductController {
         }
     }
 
-    create(_, res) {
+    create(_: Request, res: Response) {
         return res.sendFile(
             path.join(
                 __dirname,
@@ -22,7 +23,7 @@ class ProductController {
         );
     }
 
-    async store(req, res, next) {
+    async store(req: Request, res: Response, next: NextFunction) {
         try {
             const name = req.body?.['product-name'] || '';
             const product = await productsRepository.store({ name });
@@ -32,14 +33,14 @@ class ProductController {
         }
     }
 
-    async show(req, res, next) {
+    async show(req: Request, res: Response, next: NextFunction) {
         try {
             const id = req.params.id;
-            return res.json(await productsRepository.show(id));
+            return res.json(await productsRepository.show(Number(id)));
         } catch (error) {
             next(error);
         }
     }
 }
 
-module.exports = new ProductController();
+export default new ProductController();

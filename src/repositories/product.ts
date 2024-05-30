@@ -1,5 +1,5 @@
-const Product = require('../models/product');
-const db = require('../mysql-db/mysqlprovider');
+import { Product } from '../models/product';
+import db from '../mysql-db/mysqlprovider';
 
 class ProductRespository {
     async index() {
@@ -7,7 +7,7 @@ class ProductRespository {
         return products;
     }
 
-    async store({ name }) {
+    async store({ name }: { name: string }) {
         if (!name) {
             throw new Error('Name is required');
         }
@@ -18,7 +18,7 @@ class ProductRespository {
         return product;
     }
 
-    async show(id) {
+    async show(id: number) {
         const [product] = await db.execute(`SELECT * from \`products\` WHERE id = ${id};`);
         if (!product) {
             throw new Error('Not found');
@@ -27,4 +27,4 @@ class ProductRespository {
     }
 }
 
-module.exports = new ProductRespository();
+export default new ProductRespository();

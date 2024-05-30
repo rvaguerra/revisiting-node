@@ -1,6 +1,6 @@
-const path = require('path');
-const express = require('express');
-const productsRouter = require('./routes/products');
+import express from 'express';
+import path from 'path';
+import productsRouter from './routes/products';
 
 const app = express();
 app.use(express.urlencoded({ extended: false }));
@@ -20,3 +20,6 @@ app.use((_, res) => {
 });
 
 app.listen(8080);
+
+console.log('Listening...');
+

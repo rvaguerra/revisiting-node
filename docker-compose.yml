@@ -2,7 +2,11 @@ version: '3.1'
 
 services:
   server:
-    build: .
+    container_name: express-server
+    build:
+      context: .
+      target: development
+    command: npm run dev
     ports:
       - 8080:8080
     expose:
@@ -36,7 +40,7 @@ services:
     expose:
       - 3306
     volumes:
-      - ./mysql-db/mysql-migration.sql:/docker-entrypoint-initdb.d/mysql-migration.sql
+      - ./src/mysql-db/mysql-migration.sql:/docker-entrypoint-initdb.d/mysql-migration.sql
     networks:
       - internal
 
