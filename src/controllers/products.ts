@@ -41,6 +41,27 @@ class ProductController {
             next(error);
         }
     }
+
+    async patch(req: Request, res: Response, next: NextFunction) {
+        try {
+            const id = req.params.id;
+            const name = req.body.name;
+            await productsRepository.patch(Number(id), { name });
+            return res.json({ message: 'OK' });
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async delete(req: Request, res: Response, next: NextFunction) {
+        try {
+            const id = req.params.id;
+            await productsRepository.delete(Number(id));
+            return res.json({ message: 'OK' });
+        } catch (error) {
+            next(error);
+        }
+    }
 }
 
 export default new ProductController();

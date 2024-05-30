@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
-import { Product } from '../entities/product.entity';
 import db from '../data/datasource';
+import { Product } from '../entities/product.entity';
 
 class ProductRespository {
     constructor(private dataSource: DataSource) { }
@@ -9,12 +9,20 @@ class ProductRespository {
         return await this.dataSource.getRepository(Product).find();
     }
 
-    async store({ name }: { name: string }) {
-        return await this.dataSource.getRepository(Product).save({ name });
+    async store(product: Partial<Product>) {
+        return await this.dataSource.getRepository(Product).save(product);
     }
 
     async show(id: number) {
         return await this.dataSource.getRepository(Product).findOneByOrFail({ id });
+    }
+
+    async patch(id: number, product: Partial<Product>) {
+        await this.dataSource.getRepository(Product).update({ id }, product);
+    }
+
+    async delete(id: number) {
+        return await this.dataSource.getRepository(Product).delete({ id });
     }
 }
 
