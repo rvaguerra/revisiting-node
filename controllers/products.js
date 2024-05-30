@@ -34,8 +34,8 @@ class ProductController {
 
     async show(req, res, next) {
         try {
-            const index = req.params.id;
-            return res.json(await productsRepository.show(index));
+            const id = req.params.id;
+            return res.json(await productsRepository.show(id));
         } catch (error) {
             next(error);
         }
