@@ -5,6 +5,7 @@ import mongodb from './data/mongodb';
 import mysqldb from './data/mysqldb';
 import productsRouter from './routes/products';
 import urlShortenerRouter from './routes/url.shortener';
+import usersRouter from './routes/users';
 import { retry } from './utils/retry';
 
 const DATABASE_RETRIES = 20;
@@ -23,6 +24,7 @@ const DATABASE_WAIT = 1000;
 
     app.use('/products', productsRouter);
     app.use('/url', urlShortenerRouter);
+    app.use('/users', usersRouter);
 
     app.get('/', (_, res) => {
         return res.send('Home');

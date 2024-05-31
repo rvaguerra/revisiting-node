@@ -9,6 +9,7 @@
 - [URL Shortener](#url-shortener)
   - [Architecture](#architecture-1)
   - [API](#api-1)
+- [Users](#users)
 
 ## Overview
 
@@ -137,3 +138,12 @@ Base endpoint: `/url`.
 | shorten | POST   | /url/shorten |
 | show    | GET    | /url/:id     |
 | patch   | PATCH  | /url/:id     |
+
+## Users
+
+Base endpoint: `/users`.
+
+| Action | Method | URI           |
+| ------ | ------ | ------------- |
+| signup | POST   | /users/signup |
+| signin | POST   | /users/signin |
