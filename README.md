@@ -2,6 +2,7 @@
 
 - [Overview](#overview)
 - [Docker](#docker)
+- [TypeORM](#typeorm)
 - [Product](#product)
   - [Architecture](#architecture)
   - [API](#api)
@@ -38,6 +39,18 @@ Destroy the container by running:
 
 ```
 docker-compose down
+```
+
+## TypeORM
+
+TypeORM requires migrations:
+
+```
+// dev
+npx typeorm-ts-node-commonjs migration:run -d ./src/data/mysqldb.ts
+
+// prod
+npx typeorm migration:run -d ./dist/data/mysqldb.ts
 ```
 
 ## Product
