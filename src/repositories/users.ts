@@ -1,30 +1,23 @@
-import { Collection, MongoClient } from "mongodb";
-import mongodb from "../data/mongodb";
-import { PartialUser, User } from "../entities/user.entity";
+import { User } from "../entities/user.entity";
 import { validPassword, hash } from "../utils/encryption";
 
 class UserRepository {
-    private collection: Collection;
-
-    constructor(mongodb: MongoClient) {
-        this.collection = mongodb.db('test').collection('users');
-    }
-
-    async signup({ email, password }: PartialUser): Promise<string> {
-        const user = await this.collection.findOne({ email });
+    async signup({ email, password }: { email: string, password: string }): Promise<string> {
+        const user = await User.findOne({ email });
         if (user) {
             throw new Error('User exists.');
         }
         const hashed = hash(password);
-        const { insertedId } = await this.collection.insertOne({
+        const newUser = new User({
             email,
             password: hashed,
         });
-        return insertedId.toString();
+        await newUser.save();
+        return newUser.id;
     }
 
-    async signin({ email, password }: PartialUser): Promise<boolean> {
-        const user = await this.collection.findOne<User>({ email });
+    async signin({ email, password }: { email: string, password: string }): Promise<boolean> {
+        const user = await User.findOne({ email });
         if (!user) {
             throw new Error('User does not exist.');
         }
@@ -32,4 +25,4 @@ class UserRepository {
     }
 }
 
-export default new UserRepository(mongodb);
+export default new UserRepository();

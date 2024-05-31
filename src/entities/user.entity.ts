@@ -1,7 +1,15 @@
-export interface User {
-    _id: string;
-    email: string;
-    password: string;
-}
+import mongoose, { Schema } from "mongoose";
 
-export type PartialUser = Pick<User, 'email' | 'password'>;
+const name = 'User';
+const schema = new Schema({
+    email: {
+        type: String,
+        required: true,
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+});
+
+export const User = mongoose.model(name, schema);

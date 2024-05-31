@@ -64,7 +64,7 @@ Access database directly by:
 
 > use test
 > test.users.find()
-> test['url-shortener'].find()
+> test.urls.find()
 ```
 
 ## Product

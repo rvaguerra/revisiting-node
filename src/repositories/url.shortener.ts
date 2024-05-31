@@ -1,31 +1,17 @@
-import { Collection, MongoClient, ObjectId } from "mongodb";
-import mongodb from "../data/mongodb";
+import { Url } from "../entities/url.entity";
 
 class UrlShortenerRepository {
-    private collection: Collection;
-
-    constructor(mongodb: MongoClient) {
-        this.collection = mongodb.db('test').collection('url-shortener');
-    }
-
     async shorten(url: string) {
-        return await this.collection.insertOne({ url });
+        return await (new Url({ url })).save();
     }
 
     async fetch(id: string) {
-        return await this.collection.findOne({ _id: new ObjectId(id) });
+        return await Url.findById(id);
     }
 
     async patch(id: string, url: string) {
-        return await this.collection.updateOne(
-            {
-                _id: new ObjectId(id),
-            },
-            {
-                $set: { url }
-            },
-        );
+        return await Url.findByIdAndUpdate(id, { url }, { new: true });
     }
 }
 
-export default new UrlShortenerRepository(mongodb);
+export default new UrlShortenerRepository();
