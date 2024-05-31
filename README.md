@@ -3,6 +3,7 @@
 - [Overview](#overview)
 - [Docker](#docker)
 - [TypeORM](#typeorm)
+- [MongoDB](#mongodb)
 - [Product](#product)
   - [Architecture](#architecture)
   - [API](#api)
@@ -52,6 +53,18 @@ npx typeorm-ts-node-commonjs migration:run -d ./src/data/mysqldb.ts
 
 // prod
 npx typeorm migration:run -d ./dist/data/mysqldb.ts
+```
+
+## MongoDB
+
+Access database directly by:
+
+```
+# mongosh -u root -p
+
+> use test
+> test.users.find()
+> test['url-shortener'].find()
 ```
 
 ## Product
