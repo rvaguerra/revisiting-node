@@ -1,6 +1,7 @@
 import { Collection, MongoClient } from "mongodb";
 import mongodb from "../data/mongodb";
 import { PartialUser, User } from "../entities/user.entity";
+import { validPassword, hash } from "../utils/encryption";
 
 class UserRepository {
     private collection: Collection;
@@ -14,8 +15,11 @@ class UserRepository {
         if (user) {
             throw new Error('User exists.');
         }
-        // TODO: encryption
-        const { insertedId } = await this.collection.insertOne({ email, password });
+        const hashed = hash(password);
+        const { insertedId } = await this.collection.insertOne({
+            email,
+            password: hashed,
+        });
         return insertedId.toString();
     }
 
@@ -24,8 +28,7 @@ class UserRepository {
         if (!user) {
             throw new Error('User does not exist.');
         }
-        // TODO: encryption
-        return password === user.password;
+        return validPassword(password, user.password);
     }
 }
 
