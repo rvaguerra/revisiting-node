@@ -11,7 +11,10 @@ const DATABASE_WAIT = 1000;
 
 (async () => {
     await retry(async () => { await mysqldb.initialize(); }, DATABASE_RETRIES, DATABASE_WAIT);
-    await retry(async () => { await mongodb.initialize(); }, DATABASE_RETRIES, DATABASE_WAIT);
+    await retry(async () => {
+        await mongodb.connect();
+        mongodb.db("admin").command({ ping: 1 });
+    }, DATABASE_RETRIES, DATABASE_WAIT);
 
     const app = express();
     app.use(express.urlencoded({ extended: false }));
