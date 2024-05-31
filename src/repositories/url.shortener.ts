@@ -4,8 +4,8 @@ import mongodb from "../data/mongodb";
 class UrlShortenerRepository {
     private collection: Collection;
 
-    constructor(private mongodb: MongoClient) {
-        this.collection = this.mongodb.db('test').collection('url-shortener');
+    constructor(mongodb: MongoClient) {
+        this.collection = mongodb.db('test').collection('url-shortener');
     }
 
     async shorten(url: string) {
