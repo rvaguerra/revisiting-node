@@ -16,6 +16,13 @@ class UrlShortenerController {
         const shortened = await urlShortenerRepository.fetch(id);
         return res.json(shortened);
     }
+
+    async patch(req: Request, res: Response, next: NextFunction) {
+        const { id } = req.params;
+        const { url } = req.body;
+        const patched = await urlShortenerRepository.patch(id, url);
+        return res.json(patched);
+    }
 }
 
 export default new UrlShortenerController();

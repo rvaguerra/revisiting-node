@@ -15,6 +15,17 @@ class UrlShortenerRepository {
     async fetch(id: string) {
         return await this.collection.findOne({ _id: new ObjectId(id) });
     }
+
+    async patch(id: string, url: string) {
+        return await this.collection.updateOne(
+            {
+                _id: new ObjectId(id),
+            },
+            {
+                $set: { url }
+            },
+        );
+    }
 }
 
 export default new UrlShortenerRepository(mongodb);
