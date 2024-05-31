@@ -1,17 +1,19 @@
-import { MongoClient, ObjectId } from "mongodb";
+import { Collection, MongoClient, ObjectId } from "mongodb";
 import mongodb from "../data/mongodb";
 
 class UrlShortenerRepository {
-    constructor(private mongodb: MongoClient) { }
+    private collection: Collection;
+
+    constructor(private mongodb: MongoClient) {
+        this.collection = this.mongodb.db('test').collection('url-shortener');
+    }
 
     async shorten(url: string) {
-        const collection = this.mongodb.db('test').collection('url-shortener');
-        return await collection.insertOne({ url });
+        return await this.collection.insertOne({ url });
     }
 
     async fetch(id: string) {
-        const collection = this.mongodb.db('test').collection('url-shortener');
-        return await collection.findOne({ _id: new ObjectId(id) });
+        return await this.collection.findOne({ _id: new ObjectId(id) });
     }
 }
 
