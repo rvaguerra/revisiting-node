@@ -3,6 +3,7 @@ version: '3.1'
 services:
   server:
     container_name: express-server
+    image: express-server
     build:
       context: .
       target: development
