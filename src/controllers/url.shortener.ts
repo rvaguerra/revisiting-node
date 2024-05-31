@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import urlShortenerRepository from '../repositories/url.shortener';
 
-class UrlShortenerController {
+export class UrlShortenerController {
     async shorten(req: Request, res: Response, next: NextFunction) {
         const { url } = req.body;
         const shortened = await urlShortenerRepository.shorten(url);
@@ -24,5 +24,3 @@ class UrlShortenerController {
         return res.json(patched);
     }
 }
-
-export default new UrlShortenerController();

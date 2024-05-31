@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import usersRepository from '../repositories/users';
 
-class UsersController {
+export class UsersController {
     async signup(req: Request, res: Response, next: NextFunction) {
         try {
             const { email, password } = req.body;
@@ -25,5 +25,3 @@ class UsersController {
         }
     }
 }
-
-export default UsersController;

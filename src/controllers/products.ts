@@ -2,7 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import path from 'path';
 import productsRepository from '../repositories/product';
 
-class ProductController {
+export class ProductController {
     async index(_: Request, res: Response, next: NextFunction) {
         try {
             return res.json(await productsRepository.index());
@@ -63,5 +63,3 @@ class ProductController {
         }
     }
 }
-
-export default new ProductController();
