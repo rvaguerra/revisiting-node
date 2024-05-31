@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
+import { MongooseSchema } from './mongoose.schemas';
 
-const name = 'Url';
 const schema = new Schema({
     url: {
         type: String,
@@ -8,4 +8,4 @@ const schema = new Schema({
     },
 });
 
-export const Url = mongoose.model(name, schema);
+export const Url = mongoose.model(MongooseSchema.Url, schema);
