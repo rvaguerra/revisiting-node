@@ -14,7 +14,7 @@
 
 ## Overview
 
-This repo is focused on revisiting Node.js concepts. Also an amazing opportunity to also get familiar with new technologies, libraries and strategies. Here is what is being used:
+This repo is focused on revisiting Node.js concepts. Also an amazing opportunity to get familiar with new technologies, libraries and strategies. Here is what is being used:
 
 - node.js
 - docker
