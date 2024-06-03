@@ -45,4 +45,4 @@ jobs:
           file: ./Dockerfile
           target: production
           push: true
-          tags: ${{ secrets.DOCKERHUB_TOKEN }}/revisiting-node:latest
+          tags: ${{ secrets.DOCKERHUB_TOKEN }}/revisitingnode:latest
