@@ -11,17 +11,20 @@
   - [Architecture](#architecture-1)
   - [API](#api-1)
 - [Users](#users)
+- [TODO](#todo)
 
 ## Overview
 
 This repo is focused on revisiting Node.js concepts. Also an amazing opportunity to get familiar with new technologies, libraries and strategies. Here is what is being used:
 
-- node.js
+- node.js (typescript)
 - docker
 - express
 - mysql
 - typeorm
 - mongodb
+- jest
+- CI/CD (github actions)
 
 It contains really small projects that are great to revisit/learn key concepts.
 
@@ -160,3 +163,16 @@ Base endpoint: `/users`.
 | ------ | ------ | ------------- |
 | signup | POST   | /users/signup |
 | signin | POST   | /users/signin |
+
+## TODO
+
+- [ ] Add environment variables
+- [ ] Environment variables schema validation with [joi](https://joi.dev/)
+- [ ] Implement repository dependency injection
+- [ ] Implement test coverage
+- [ ] Write missing tests
+- [ ] Remove views, so this repo becomes a REST(ful, maybe?) API
+- [ ] Authentication using JWT
+- [ ] Redis as a cache database
+- [ ] GraphQL - ?
+- [ ] RabbitMQ - ?
