@@ -4,8 +4,6 @@ COPY . .
 RUN npm install
 
 FROM base as development
-ENV NODE_PATH=./src
 
 FROM base as production
-ENV NODE_PATH=./dist
 RUN npm run build
